@@ -6,6 +6,8 @@
     body { font-family: -apple-system, sans-serif; text-align: center; padding: 60px 20px; background: #1a1a2e; color: #e0e0e0; }
     h1 { color: #a78bfa; }
     p { color: #9ca3af; margin-top: 20px; }
+    a.btn { display: inline-block; margin-top: 30px; padding: 14px 32px; background: #a78bfa; color: #fff; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: 600; }
+    a.btn:hover { background: #8b5cf6; }
   </style>
   <script>
     (function() {
@@ -15,6 +17,12 @@
       if (code) {
         var roseyURL = 'rosey://tesla-callback?code=' + encodeURIComponent(code);
         if (state) roseyURL += '&state=' + encodeURIComponent(state);
+        // Set the link href before trying auto-redirect
+        document.addEventListener('DOMContentLoaded', function() {
+          var link = document.getElementById('open-link');
+          if (link) link.href = roseyURL;
+        });
+        // Try auto-redirect
         window.location.href = roseyURL;
       }
     })();
@@ -22,7 +30,8 @@
 </head>
 <body>
   <h1>Rosey</h1>
-  <p>Redirecting to Rosey app...</p>
-  <p>If nothing happens, make sure Rosey is running and <a href="#" onclick="window.location.reload()" style="color:#a78bfa">try again</a>.</p>
+  <p>Tesla authorization complete!</p>
+  <a id="open-link" class="btn" href="#">Open Rosey</a>
+  <p style="font-size: 13px; margin-top: 40px;">Click the button above if Rosey didn't open automatically.</p>
 </body>
 </html>
